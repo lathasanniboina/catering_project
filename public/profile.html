@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <header>
+        <h1>User Profile</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="cart.html">Cart</a>
+            <a href="orders.html">Orders</a>
+            <a href="#" onclick="logout()">Logout</a>
+        </nav>
+    </header>
+    
+    <section id="profile-section">
+        <h2>Welcome, <span id="user-name"></span></h2>
+        <p>Email: <span id="user-email"></span></p>
+    </section>
+    
+    <script src="/js/auth.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            firebase.auth().onAuthStateChanged((user) => {
+                if (user) {
+                    document.getElementById("user-name").textContent = user.displayName || "User";
+                    document.getElementById("user-email").textContent = user.email;
+                } else {
+                    window.location.href = "login.html";
+                }
+            });
+        });
+    </script>
+</body>
+</html>
